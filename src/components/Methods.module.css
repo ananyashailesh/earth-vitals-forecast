@@ -1,0 +1,81 @@
+.wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 40px;
+  margin-top: 56px;
+  padding: 28px 0 48px;
+  border-top: 3px double var(--ink);
+  font-size: 0.9375rem;
+}
+
+.col h2 {
+  font-size: 1.75rem;
+  margin-bottom: 12px;
+}
+.col p {
+  margin: 0 0 12px;
+  max-width: 68ch;
+}
+
+.defs {
+  margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px;
+}
+.defs dt {
+  font-weight: 700;
+}
+.defs dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.caveat {
+  padding-left: 12px;
+  border-left: 2px solid var(--fc);
+  color: var(--ink-2);
+}
+
+.sources {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+.sources li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.sources h3 {
+  font-size: 1.125rem;
+  margin-bottom: 2px;
+}
+.sources p {
+  margin: 0;
+}
+.files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+.stamp,
+.note {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+@media (max-width: 860px) {
+  .wrap {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .defs {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .defs dd {
+    margin-bottom: 8px;
+  }
+}

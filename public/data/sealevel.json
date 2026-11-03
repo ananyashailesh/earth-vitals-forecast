@@ -1,0 +1,152 @@
+{
+ "id": "sealevel",
+ "fetchedAt": "2026-11-03T17:45:35.569Z",
+ "name": "Global mean sea level",
+ "short": "Sea level",
+ "unit": "mm",
+ "decimals": 1,
+ "description": "Annual mean satellite-altimetry GMSL (seasonal signal and GIA removed), relative to the altimetry reference. Release 2026rel2.",
+ "source": "University of Colorado Sea Level Research Group (NASA-funded satellite altimetry)",
+ "sourceUrl": "https://sealevel.colorado.edu/",
+ "file": "https://sealevel.colorado.edu/files/2026_rel2/gmsl_2026rel2_seasons_rmvd.txt",
+ "lastModified": "2026-08-21T19:57:38.000Z",
+ "latestMonthly": {
+  "year": 2026,
+  "month": 6,
+  "value": 98.849
+ },
+ "annual": [
+  {
+   "year": 1993,
+   "value": -16.1
+  },
+  {
+   "year": 1994,
+   "value": -11.3
+  },
+  {
+   "year": 1995,
+   "value": -6.1
+  },
+  {
+   "year": 1996,
+   "value": -2.7
+  },
+  {
+   "year": 1997,
+   "value": 2
+  },
+  {
+   "year": 1998,
+   "value": 0.9
+  },
+  {
+   "year": 1999,
+   "value": 0.1
+  },
+  {
+   "year": 2000,
+   "value": 4.7
+  },
+  {
+   "year": 2001,
+   "value": 10.7
+  },
+  {
+   "year": 2002,
+   "value": 11.5
+  },
+  {
+   "year": 2003,
+   "value": 14.1
+  },
+  {
+   "year": 2004,
+   "value": 17
+  },
+  {
+   "year": 2005,
+   "value": 22.1
+  },
+  {
+   "year": 2006,
+   "value": 23.3
+  },
+  {
+   "year": 2007,
+   "value": 23.3
+  },
+  {
+   "year": 2008,
+   "value": 26.8
+  },
+  {
+   "year": 2009,
+   "value": 30.8
+  },
+  {
+   "year": 2010,
+   "value": 32.2
+  },
+  {
+   "year": 2011,
+   "value": 31.4
+  },
+  {
+   "year": 2012,
+   "value": 42
+  },
+  {
+   "year": 2013,
+   "value": 44.4
+  },
+  {
+   "year": 2014,
+   "value": 48.5
+  },
+  {
+   "year": 2015,
+   "value": 58.2
+  },
+  {
+   "year": 2016,
+   "value": 61
+  },
+  {
+   "year": 2017,
+   "value": 61.7
+  },
+  {
+   "year": 2018,
+   "value": 65
+  },
+  {
+   "year": 2019,
+   "value": 72
+  },
+  {
+   "year": 2020,
+   "value": 73.9
+  },
+  {
+   "year": 2021,
+   "value": 78.7
+  },
+  {
+   "year": 2022,
+   "value": 81.3
+  },
+  {
+   "year": 2023,
+   "value": 88.1
+  },
+  {
+   "year": 2024,
+   "value": 91.7
+  },
+  {
+   "year": 2025,
+   "value": 91.7
+  }
+ ]
+}

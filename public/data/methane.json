@@ -1,0 +1,187 @@
+{
+ "id": "methane",
+ "fetchedAt": "2026-11-03T17:45:35.569Z",
+ "name": "Methane",
+ "short": "CH₄",
+ "unit": "ppb",
+ "decimals": 1,
+ "description": "Annual mean of NOAA globally averaged marine-surface monthly CH₄ (complete years only).",
+ "source": "NOAA Global Monitoring Laboratory, global network",
+ "sourceUrl": "https://gml.noaa.gov/ccgg/trends_ch4/",
+ "lastModified": "2026-10-09T19:23:08.000Z",
+ "latestMonthly": {
+  "year": 2026,
+  "month": 6,
+  "value": 1934.57
+ },
+ "annual": [
+  {
+   "year": 1984,
+   "value": 1645.012
+  },
+  {
+   "year": 1985,
+   "value": 1657.373
+  },
+  {
+   "year": 1986,
+   "value": 1670.214
+  },
+  {
+   "year": 1987,
+   "value": 1682.808
+  },
+  {
+   "year": 1988,
+   "value": 1693.302
+  },
+  {
+   "year": 1989,
+   "value": 1704.624
+  },
+  {
+   "year": 1990,
+   "value": 1714.567
+  },
+  {
+   "year": 1991,
+   "value": 1724.956
+  },
+  {
+   "year": 1992,
+   "value": 1735.453
+  },
+  {
+   "year": 1993,
+   "value": 1736.539
+  },
+  {
+   "year": 1994,
+   "value": 1742.147
+  },
+  {
+   "year": 1995,
+   "value": 1748.898
+  },
+  {
+   "year": 1996,
+   "value": 1751.343
+  },
+  {
+   "year": 1997,
+   "value": 1754.583
+  },
+  {
+   "year": 1998,
+   "value": 1765.692
+  },
+  {
+   "year": 1999,
+   "value": 1772.348
+  },
+  {
+   "year": 2000,
+   "value": 1773.204
+  },
+  {
+   "year": 2001,
+   "value": 1771.316
+  },
+  {
+   "year": 2002,
+   "value": 1772.725
+  },
+  {
+   "year": 2003,
+   "value": 1777.351
+  },
+  {
+   "year": 2004,
+   "value": 1777.098
+  },
+  {
+   "year": 2005,
+   "value": 1774.292
+  },
+  {
+   "year": 2006,
+   "value": 1774.986
+  },
+  {
+   "year": 2007,
+   "value": 1781.408
+  },
+  {
+   "year": 2008,
+   "value": 1787.097
+  },
+  {
+   "year": 2009,
+   "value": 1793.575
+  },
+  {
+   "year": 2010,
+   "value": 1798.95
+  },
+  {
+   "year": 2011,
+   "value": 1803.093
+  },
+  {
+   "year": 2012,
+   "value": 1808.146
+  },
+  {
+   "year": 2013,
+   "value": 1813.478
+  },
+  {
+   "year": 2014,
+   "value": 1822.722
+  },
+  {
+   "year": 2015,
+   "value": 1834.298
+  },
+  {
+   "year": 2016,
+   "value": 1843.252
+  },
+  {
+   "year": 2017,
+   "value": 1849.675
+  },
+  {
+   "year": 2018,
+   "value": 1857.448
+  },
+  {
+   "year": 2019,
+   "value": 1866.699
+  },
+  {
+   "year": 2020,
+   "value": 1878.941
+  },
+  {
+   "year": 2021,
+   "value": 1894.998
+  },
+  {
+   "year": 2022,
+   "value": 1911.131
+  },
+  {
+   "year": 2023,
+   "value": 1921.554
+  },
+  {
+   "year": 2024,
+   "value": 1929.528
+  },
+  {
+   "year": 2025,
+   "value": 1936.076
+  }
+ ]
+}

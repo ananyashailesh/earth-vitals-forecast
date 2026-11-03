@@ -1,0 +1,165 @@
+.page {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  z-index: 10;
+}
+.skip:focus {
+  top: 12px;
+}
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 40px;
+  padding: 32px 0 20px;
+}
+.brand h1 {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.9;
+}
+.brand p {
+  margin: 10px 0 0;
+  max-width: 52ch;
+  color: var(--ink-2);
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 24px;
+  margin: 0;
+  font-size: 0.875rem;
+}
+.status dt {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.status dd {
+  margin: 0;
+}
+.themeCell {
+  align-self: center;
+}
+
+.error {
+  padding: 12px 16px;
+  border: 1px solid var(--up);
+  color: var(--up);
+  background: var(--up-bg);
+}
+.loading {
+  font-family: var(--font-mono);
+  color: var(--ink-3);
+  padding: 40px 0;
+}
+
+.main {
+  padding-top: 32px;
+  outline: none;
+}
+
+.viewHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px 40px;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.viewHead h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+.kicker {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--obs);
+}
+.desc {
+  margin: 8px 0 0;
+  max-width: 64ch;
+  color: var(--ink-2);
+}
+.desc code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 4px 24px;
+  margin: 0;
+  font-size: 0.875rem;
+}
+.meta dt {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.meta dd {
+  margin: 0;
+}
+
+/* chart + control column, like a scope screen beside its knobs */
+.instrument {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  padding: 20px;
+  background: var(--panel);
+  border: 1px solid var(--ink-2);
+}
+
+.tables {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 40px;
+  margin-top: 36px;
+}
+
+@media (max-width: 860px) {
+  .instrument {
+    grid-template-columns: 1fr;
+  }
+  .tables {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    padding: 0 16px;
+  }
+  .masthead {
+    padding-top: 24px;
+  }
+  .instrument {
+    padding: 14px 12px;
+    margin: 0 -4px;
+  }
+  .meta {
+    grid-template-columns: 1fr 1fr;
+  }
+}

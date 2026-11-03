@@ -1,0 +1,82 @@
+.input {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  margin-bottom: 6px;
+}
+
+.paste textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  background: var(--panel);
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  /* ruled notebook lines */
+  background-image: linear-gradient(transparent calc(1.5em - 1px), var(--rule-soft) 1px);
+  background-size: 100% 1.5em;
+  background-position: 0 10px;
+  background-attachment: local;
+}
+
+.status {
+  margin: 6px 0 0;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.side {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.side input {
+  min-height: 40px;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid var(--ink-3);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.button,
+.ghost {
+  min-height: 40px;
+  padding: 8px 12px;
+  text-align: left;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.button {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+}
+.button:hover {
+  background: var(--ink-2);
+}
+.ghost {
+  background: none;
+  border: 1px solid var(--ink-3);
+}
+.ghost:hover {
+  background: var(--rule-soft);
+}
+
+@media (max-width: 720px) {
+  .input {
+    grid-template-columns: 1fr;
+  }
+}
