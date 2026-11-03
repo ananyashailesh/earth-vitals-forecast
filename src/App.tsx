@@ -1,14 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { Chart } from './components/Chart'
 import { Methods } from './components/Methods'
 import { OwnData } from './components/OwnData'
 import { Settings, readSettings, writeSettings, type SettingsValue } from './components/Settings'
-import { Summary } from './components/Summary'
+import { Sidebar } from './components/Sidebar'
 import { ForecastTable, Scorecard } from './components/Tables'
-import { ThemeToggle } from './components/ThemeToggle'
-import { runForecast, type ForecastPoint, type Point } from './lib/forecast'
+import { MODEL_LABEL, runForecast, type ForecastPoint, type Point } from './lib/forecast'
 import { useRoute } from './lib/route'
-import { DEFAULT_START, VITAL_IDS, display, fmtDate, MONTHS, num, useVitals, type Vital, type VitalId } from './lib/vitals'
+import { DEFAULT_START, VITAL_IDS, display, fmtDate, MONTHS, num, signed, useVitals, type Vital, type VitalId } from './lib/vitals'
 import s from './App.module.css'
 
 export default function App() {
@@ -26,53 +25,32 @@ export default function App() {
   const setSettings = (next: SettingsValue) => navigate(path, writeSettings(next, vital), true)
 
   useEffect(() => {
-    document.title = vital ? `${vital.name} · Earth Vitals Forecast` : own ? 'Your data · Earth Vitals Forecast' : 'Earth Vitals Forecast'
+    document.title = vital ? `${vital.name} · Earth Vitals` : own ? 'Your data · Earth Vitals' : 'Earth Vitals'
   }, [vital, own])
 
-  const updated = vitals && Object.values(vitals).map((v) => v.lastModified).sort().at(-1)
-
   return (
-    <div className={s.page}>
+    <div className={s.shell}>
       <a href="#main" className={s.skip}>
-        Skip to chart
+        Skip to content
       </a>
-      <header className={s.masthead}>
-        <div className={s.brand}>
-          <h1>Earth Vitals Forecast</h1>
-          <p>Five planetary measurements, their recorded history, and what simple statistical models expect next.</p>
-        </div>
-        <dl className={s.status}>
-          <div>
-            <dt>Newest source file</dt>
-            <dd className="mono">{updated ? fmtDate(updated) : '—'}</dd>
-          </div>
-          <div>
-            <dt>Records fetched</dt>
-            <dd className="mono">{vitals ? fmtDate(vitals.co2.fetchedAt) : '—'}</dd>
-          </div>
-          <div className={s.themeCell}>
-            <ThemeToggle />
-          </div>
-        </dl>
-      </header>
+      <Sidebar vitals={vitals} active={id} own={own} unit={settings.unit} navigate={navigate} />
 
-      {error && (
-        <p role="alert" className={s.error}>
-          Could not load climate data ({error}). Run <code>npm run data</code> and reload.
-        </p>
-      )}
+      <div className={s.content}>
+        {error && (
+          <p role="alert" className={s.error}>
+            Could not load climate data ({error}). Run <code>npm run data</code> and reload.
+          </p>
+        )}
+        {!vitals && !error && <p className={s.loading}>Loading records…</p>}
 
-      {vitals && (
-        <>
-          <Summary vitals={vitals} active={id} navigate={navigate} own={own} unit={settings.unit} />
+        {vitals && (
           <main id="main" tabIndex={-1} className={s.main}>
             {vital ? <VitalView vital={vital} settings={settings} onChange={setSettings} /> : own ? <OwnData settings={settings} onChange={setSettings} example={vitals.co2} /> : null}
           </main>
-        </>
-      )}
-      {!vitals && !error && <p className={s.loading}>Loading records…</p>}
+        )}
 
-      <Methods vitals={vitals} />
+        <Methods vitals={vitals} />
+      </div>
     </div>
   )
 }
@@ -86,55 +64,106 @@ function VitalView({ vital, settings, onChange }: { vital: Vital; settings: Sett
   const sp = (p: Point): Point => ({ year: p.year, value: p.value * d.k })
   const sf = (f: ForecastPoint): ForecastPoint => ({ year: f.year, value: f.value * d.k, lo: f.lo * d.k, hi: f.hi * d.k })
   const lm = vital.latestMonthly
+  const last = vital.annual.at(-1)!
+  const prev = vital.annual.at(-2)!
+  const end = result.forecast.at(-1)!
+  const yoy = (last.value - prev.value) * d.k
+  const change = (end.value - last.value) * d.k
+  const score = result.scores[result.model]
+  const f = (v: number) => num(v * d.k, d.decimals)
 
   return (
     <>
-      <div className={s.viewHead}>
+      <header className={s.pageHead}>
         <div>
-          <p className={s.kicker}>
-            {vital.short} · {d.unit}
+          <p className={s.crumb}>
+            Indicators <span aria-hidden>/</span> {vital.short}
           </p>
-          <h2>{vital.name}</h2>
+          <h1>{vital.name}</h1>
           <p className={s.desc}>{vital.description}</p>
         </div>
-        <dl className={s.meta}>
-          <div>
-            <dt>Record</dt>
-            <dd className="mono">
-              {vital.annual[0].year}–{vital.annual.at(-1)!.year}, {vital.annual.length} yr
-            </dd>
-          </div>
-          {lm && (
-            <div>
-              <dt>Latest monthly</dt>
-              <dd className="mono">
-                {num(lm.value * d.k, vital.decimals)} {d.unit}, {MONTHS[lm.month - 1]} {lm.year}
-              </dd>
-            </div>
-          )}
-          <div>
-            <dt>Source updated</dt>
-            <dd className="mono">{fmtDate(vital.lastModified)}</dd>
-          </div>
-        </dl>
-      </div>
-      <div className={s.instrument}>
-        <Chart
-          title={vital.name}
-          history={vital.annual.map(sp)}
-          trainStart={result.train[0].year}
-          fitted={result.fitted.map(sp)}
-          forecast={result.forecast.map(sf)}
-          unit={d.unit}
-          decimals={d.decimals}
-          level={settings.level}
+        <div className={s.headMeta}>
+          <span className={s.pill}>
+            {vital.annual[0].year}–{last.year} · {vital.annual.length} yrs
+          </span>
+          <span className={s.pill}>Source updated {fmtDate(vital.lastModified)}</span>
+        </div>
+      </header>
+
+      <section className={s.kpis} aria-label="Key figures">
+        <Kpi label={`Annual mean, ${last.year}`} value={f(last.value)} unit={d.unit} note={<Delta v={yoy} d={d.decimals} suffix={`vs ${prev.year}`} />} />
+        <Kpi
+          label="Latest monthly"
+          value={lm ? f(lm.value) : '—'}
+          unit={lm ? d.unit : ''}
+          note={lm ? <span className={s.kNote}>{MONTHS[lm.month - 1]} {lm.year}</span> : <span className={s.kNote}>Annual record only</span>}
         />
+        <Kpi
+          label={`Forecast, ${end.year}`}
+          value={f(end.value)}
+          unit={d.unit}
+          note={
+            <span className={s.kNote}>
+              <Delta v={change} d={d.decimals} /> · {settings.level}% range {f(end.lo)}–{f(end.hi)}
+            </span>
+          }
+        />
+        <Kpi label="Backtest error (MAE)" value={f(score.mae)} unit={d.unit} note={<span className={s.kNote}>{MODEL_LABEL[result.model]}, 2-year ahead</span>} />
+      </section>
+
+      <div className={s.grid}>
+        <section className="card" aria-labelledby="chart-h">
+          <div className="card-head">
+            <div>
+              <h3 id="chart-h">Observed record and forecast</h3>
+              <p>
+                Annual values in {d.unit}. Hover or use arrow keys to read values.
+              </p>
+            </div>
+          </div>
+          <div className="card-body">
+            <Chart
+              title={vital.name}
+              history={vital.annual.map(sp)}
+              trainStart={result.train[0].year}
+              fitted={result.fitted.map(sp)}
+              forecast={result.forecast.map(sf)}
+              unit={d.unit}
+              decimals={d.decimals}
+              level={settings.level}
+            />
+          </div>
+        </section>
         <Settings value={settings} onChange={onChange} series={vital.annual} temperature={isTemp} defaultFrom={DEFAULT_START[vital.id] ?? vital.annual[0].year} chosen={result.model} />
       </div>
+
       <div className={s.tables}>
+        <ForecastTable result={result} last={last} unit={d.unit} k={d.k} decimals={d.decimals} level={settings.level} />
         <Scorecard result={result} unit={d.unit} k={d.k} decimals={d.decimals} />
-        <ForecastTable result={result} last={vital.annual.at(-1)!} unit={d.unit} k={d.k} decimals={d.decimals} level={settings.level} />
       </div>
     </>
+  )
+}
+
+function Kpi({ label, value, unit, note }: { label: string; value: string; unit: string; note: ReactNode }) {
+  return (
+    <div className={`card ${s.kpi}`}>
+      <p className={s.kLabel}>{label}</p>
+      <p className={s.kValue}>
+        <span className="num">{value}</span> <small>{unit}</small>
+      </p>
+      <div>{note}</div>
+    </div>
+  )
+}
+
+function Delta({ v, d, suffix }: { v: number; d: number; suffix?: string }) {
+  return (
+    <span className={s.kNote}>
+      <span className={`num ${s.delta} ${v > 0 ? s.up : s.down}`}>
+        {v > 0 ? '↑' : '↓'} {signed(v, d)}
+      </span>
+      {suffix && <> {suffix}</>}
+    </span>
   )
 }

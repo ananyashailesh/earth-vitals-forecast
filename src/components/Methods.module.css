@@ -1,20 +1,31 @@
 .wrap {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 40px;
-  margin-top: 56px;
-  padding: 28px 0 48px;
-  border-top: 3px double var(--ink);
-  font-size: 0.9375rem;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 32px;
+  padding: 32px 0 40px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-2);
+  scroll-margin-top: 16px;
 }
 
+.col {
+  padding: 18px 20px;
+}
 .col h2 {
-  font-size: 1.75rem;
-  margin-bottom: 12px;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 10px;
 }
 .col p {
   margin: 0 0 12px;
-  max-width: 68ch;
+  max-width: 72ch;
+}
+.col b {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .defs {
@@ -24,30 +35,36 @@
   gap: 8px 16px;
 }
 .defs dt {
-  font-weight: 700;
+  font-weight: 500;
+  color: var(--text);
 }
 .defs dd {
   margin: 0;
-  color: var(--ink-2);
 }
 
 .caveat {
-  padding-left: 12px;
-  border-left: 2px solid var(--fc);
-  color: var(--ink-2);
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 .sources {
   list-style: none;
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   padding: 0;
 }
 .sources li {
   padding: 10px 0;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--border);
+}
+.sources li:first-child {
+  padding-top: 0;
 }
 .sources h3 {
-  font-size: 1.125rem;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
   margin-bottom: 2px;
 }
 .sources p {
@@ -57,19 +74,18 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2px 14px;
-  font-size: 0.8125rem;
+  font-size: 12px;
   overflow-wrap: anywhere;
 }
 .stamp,
 .note {
-  font-size: 0.8125rem;
-  color: var(--ink-3);
+  font-size: 12px;
+  color: var(--text-3);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1000px) {
   .wrap {
     grid-template-columns: 1fr;
-    gap: 28px;
   }
   .defs {
     grid-template-columns: 1fr;

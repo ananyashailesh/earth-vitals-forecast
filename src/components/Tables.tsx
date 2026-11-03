@@ -8,11 +8,15 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
   const chosen = result.scores[result.model]
   const f = (v: number) => (Number.isFinite(v) ? num(v * k, decimals) : '—')
   return (
-    <section className={s.block} aria-labelledby="score-h">
-      <h3 id="score-h">Model scorecard</h3>
-      <p className={s.cap}>
-        Rolling-origin backtest: train to year <i>t</i>, predict <i>t</i> + 2, for the last {chosen.rows.length} origins. Errors in {unit}.
-      </p>
+    <section className="card" aria-labelledby="score-h">
+      <div className="card-head">
+        <div>
+          <h3 id="score-h">Model comparison</h3>
+          <p>
+            Rolling-origin backtest: train to year <i>t</i>, predict <i>t</i> + 2, last {chosen.rows.length} origins. Errors in {unit}.
+          </p>
+        </div>
+      </div>
       <div className={s.scroll}>
         <table className={s.table}>
           <thead>
@@ -37,8 +41,8 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
                 <tr key={id} className={id === result.model ? s.selected : undefined} aria-current={id === result.model ? 'true' : undefined}>
                   <th scope="row">
                     {MODEL_LABEL[id]}
-                    {id === result.model && <span className={s.tag}>in use</span>}
-                    {best && <span className={s.tag}>lowest MAE</span>}
+                    {id === result.model && <span className={`${s.tag} ${s.tagActive}`}>In use</span>}
+                    {best && <span className={s.tag}>Lowest MAE</span>}
                   </th>
                   <td className={`mono ${s.n}`}>{f(sc.mae)}</td>
                   <td className={`mono ${s.n}`}>{f(sc.rmse)}</td>
@@ -90,11 +94,15 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
 
 export function ForecastTable({ result, unit, k, decimals, last, level }: Common & { last: Point; level: number }) {
   return (
-    <section className={s.block} aria-labelledby="fc-h">
-      <h3 id="fc-h">Forecast</h3>
-      <p className={s.cap}>
-        {MODEL_LABEL[result.model]}, {level}% prediction interval. Values in {unit}; change is against the last record ({last.year}).
-      </p>
+    <section className="card" aria-labelledby="fc-h">
+      <div className="card-head">
+        <div>
+          <h3 id="fc-h">Forecast values</h3>
+          <p>
+            {MODEL_LABEL[result.model]}, {level}% prediction interval, in {unit}. Change is against {last.year}.
+          </p>
+        </div>
+      </div>
       <div className={s.scroll}>
         <table className={s.table}>
           <thead>

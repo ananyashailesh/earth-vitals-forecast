@@ -73,8 +73,14 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
   const years = Array.from({ length: value.horizon }, (_, i) => last + i + 1)
 
   return (
-    <aside className={s.panel} aria-label="Forecast settings">
-      <h3 className={s.title}>Settings</h3>
+    <aside className="card" aria-labelledby={`${uid}-title`}>
+      <div className="card-head">
+        <div>
+          <h3 id={`${uid}-title`}>Model configuration</h3>
+          <p>Changes are saved in the URL.</p>
+        </div>
+      </div>
+      <div className={s.panel}>
 
       <label className={s.field}>
         <span className={s.label}>Model</span>
@@ -182,6 +188,7 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
           </div>
         </>
       )}
+      </div>
     </aside>
   )
 }

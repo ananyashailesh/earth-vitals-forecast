@@ -30,7 +30,7 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
     return () => ro.disconnect()
   }, [])
 
-  const height = width < 560 ? 300 : 420
+  const height = width < 560 ? 280 : 380
   const last = all[all.length - 1]
   // show the training window plus a quarter of its length as context, so the forecast stays legible
   const x0 = Math.max(all[0].year, trainStart - Math.round((last.year - trainStart) / 4))
@@ -146,7 +146,7 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
             <g className={s.excluded}>
               <rect x={M.left} y={M.top} width={x(trainStart) - M.left} height={height - M.top - M.bottom} />
               <text x={M.left + 6} y={M.top + 12}>
-                not in training window
+                Excluded from training
               </text>
             </g>
           )}
@@ -163,7 +163,7 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
           <g className={s.lastRecord} transform={`translate(${x(last.year)},0)`}>
             <line y1={M.top - 6} y2={height - M.bottom} />
             <text y={M.top - 12} textAnchor={x(last.year) > width - 120 ? 'end' : 'start'} dx={x(last.year) > width - 120 ? -4 : 4}>
-              LAST RECORD {last.year}
+              {last.year}
             </text>
           </g>
 

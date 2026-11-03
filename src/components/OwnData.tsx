@@ -28,17 +28,19 @@ export function OwnData({ settings, onChange, example }: { settings: SettingsVal
 
   return (
     <>
-      <div className={app.viewHead}>
+      <header className={app.pageHead}>
         <div>
-          <p className={app.kicker}>Any annual series</p>
-          <h2>Forecast your own data</h2>
+          <p className={app.crumb}>
+            Tools <span aria-hidden>/</span> Your data
+          </p>
+          <h1>Forecast your own data</h1>
           <p className={app.desc}>
             Paste one <code>year,value</code> pair per line. Headers, <code>#</code> comments and tab or semicolon separators are ignored. At least {MIN_YEARS} years are needed for a
             six-origin backtest. Nothing leaves your browser.
           </p>
         </div>
-      </div>
-      <div className={s.input}>
+      </header>
+      <div className={`card ${s.input}`}>
         <div className={s.paste}>
           <label htmlFor={`${uid}-csv`} className={s.label}>
             Series
@@ -77,7 +79,9 @@ export function OwnData({ settings, onChange, example }: { settings: SettingsVal
 
       {result && (
         <>
-          <div className={app.instrument}>
+          <div className={app.grid}>
+            <section className="card" aria-label="Chart">
+              <div className="card-body">
             <Chart
               title="Your series"
               history={points}
@@ -88,6 +92,8 @@ export function OwnData({ settings, onChange, example }: { settings: SettingsVal
               decimals={decimals}
               level={settings.level}
             />
+              </div>
+            </section>
             <Settings value={{ ...settings, from }} onChange={onChange} series={points} defaultFrom={first!} chosen={result.model} />
           </div>
           <div className={app.tables}>
