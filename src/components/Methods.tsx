@@ -15,8 +15,8 @@ const FILES: Record<VitalId, { label: string; url: string }[]> = {
 export function Methods({ vitals }: { vitals?: Record<VitalId, Vital> }) {
   return (
     <footer className={s.wrap} id="methods">
-      <section className={`card ${s.col}`} aria-labelledby="methods-h">
-        <h2 id="methods-h">Methods</h2>
+      <section className={s.col} aria-labelledby="methods-h">
+        <h2 id="methods-h">How the forecasts work</h2>
         <p>Every record is reduced to one value per calendar year, and only complete years are used. Four models are fitted to the years from the chosen training start onwards.</p>
         <dl className={s.defs}>
           <dt>Linear OLS</dt>
@@ -55,8 +55,8 @@ export function Methods({ vitals }: { vitals?: Record<VitalId, Vital> }) {
         </p>
       </section>
 
-      <section className={`card ${s.col}`} aria-labelledby="sources-h">
-        <h2 id="sources-h">Sources</h2>
+      <section className={s.col} aria-labelledby="sources-h">
+        <h2 id="sources-h">Where the data comes from</h2>
         <ul className={s.sources}>
           {VITAL_IDS.map((id) => {
             const v = vitals?.[id]

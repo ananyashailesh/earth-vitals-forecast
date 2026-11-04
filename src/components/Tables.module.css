@@ -1,3 +1,15 @@
+.block {
+  min-width: 0;
+}
+.block h3 {
+  font-size: 22px;
+}
+.cap {
+  margin: 4px 0 12px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
 .scroll {
   overflow-x: auto;
 }
@@ -5,89 +17,75 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
+  font-size: 14px;
 }
 .table th,
 .table td {
   text-align: left;
-  padding: 10px 18px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: baseline;
   white-space: nowrap;
 }
-.table tbody tr:last-child th,
-.table tbody tr:last-child td {
-  border-bottom: 0;
-}
 .table thead th {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-3);
-  background: var(--surface-2);
-  padding-top: 8px;
-  padding-bottom: 8px;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 6px;
 }
 .table tbody th {
-  font-weight: 500;
-}
-.table tbody tr:hover td,
-.table tbody tr:hover th {
-  background: var(--surface-2);
+  font-weight: 600;
 }
 .table .n {
   text-align: right;
-}
-.table :global(.mono) {
-  font-family: var(--font-sans);
-  font-size: inherit;
+  padding-right: 0;
+  padding-left: 12px;
 }
 
 .selected th,
 .selected td {
-  background: var(--obs-soft);
+  background: var(--tint);
 }
-.table tbody tr.selected:hover th,
-.table tbody tr.selected:hover td {
-  background: var(--obs-soft);
+.selected th {
+  box-shadow: inset 3px 0 0 var(--obs);
+  padding-left: 10px;
 }
 
 .tag {
   display: inline-block;
   margin-left: 8px;
-  padding: 1px 7px;
-  font-size: 11px;
-  font-weight: 500;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--text-2);
-  background: var(--hover);
-  border-radius: 999px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
 }
 .tagActive {
   color: var(--obs);
-  background: var(--obs-soft);
+  border-color: currentColor;
 }
 
 .recorded td {
   color: var(--text-3);
+  font-style: italic;
 }
 .recorded td:first-child,
 .recorded td:nth-child(2) {
   color: var(--text);
+  font-style: normal;
 }
 
 .details {
-  border-top: 1px solid var(--border);
-  font-size: 13px;
+  margin-top: 12px;
+  font-size: 14px;
 }
 .details summary {
   cursor: pointer;
-  color: var(--text-2);
-  padding: 12px 18px;
-  font-weight: 500;
-}
-.details summary:hover {
-  color: var(--text);
+  color: var(--obs);
+  padding: 4px 0;
 }
 .details[open] summary {
-  border-bottom: 1px solid var(--border);
+  margin-bottom: 6px;
 }

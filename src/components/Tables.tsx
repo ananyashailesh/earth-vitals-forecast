@@ -8,15 +8,11 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
   const chosen = result.scores[result.model]
   const f = (v: number) => (Number.isFinite(v) ? num(v * k, decimals) : '—')
   return (
-    <section className="card" aria-labelledby="score-h">
-      <div className="card-head">
-        <div>
-          <h3 id="score-h">Model comparison</h3>
-          <p>
-            Rolling-origin backtest: train to year <i>t</i>, predict <i>t</i> + 2, last {chosen.rows.length} origins. Errors in {unit}.
-          </p>
-        </div>
-      </div>
+    <section className={s.block} aria-labelledby="score-h">
+      <h3 id="score-h">How the four models scored</h3>
+      <p className={s.cap}>
+        Each model was refitted at {chosen.rows.length} past years <i>t</i> and asked to predict <i>t</i> + 2. Lower error is better; errors in {unit}.
+      </p>
       <div className={s.scroll}>
         <table className={s.table}>
           <thead>
@@ -42,7 +38,7 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
                   <th scope="row">
                     {MODEL_LABEL[id]}
                     {id === result.model && <span className={`${s.tag} ${s.tagActive}`}>In use</span>}
-                    {best && <span className={s.tag}>Lowest MAE</span>}
+                    {best && <span className={s.tag}>Lowest error</span>}
                   </th>
                   <td className={`mono ${s.n}`}>{f(sc.mae)}</td>
                   <td className={`mono ${s.n}`}>{f(sc.rmse)}</td>
@@ -94,15 +90,11 @@ export function Scorecard({ result, unit, k, decimals }: Common) {
 
 export function ForecastTable({ result, unit, k, decimals, last, level }: Common & { last: Point; level: number }) {
   return (
-    <section className="card" aria-labelledby="fc-h">
-      <div className="card-head">
-        <div>
-          <h3 id="fc-h">Forecast values</h3>
-          <p>
-            {MODEL_LABEL[result.model]}, {level}% prediction interval, in {unit}. Change is against {last.year}.
-          </p>
-        </div>
-      </div>
+    <section className={s.block} aria-labelledby="fc-h">
+      <h3 id="fc-h">Forecast by year</h3>
+      <p className={s.cap}>
+        {MODEL_LABEL[result.model]}, with the {level}% prediction interval as low and high. Values in {unit}; change is against {last.year}.
+      </p>
       <div className={s.scroll}>
         <table className={s.table}>
           <thead>
@@ -127,7 +119,7 @@ export function ForecastTable({ result, unit, k, decimals, last, level }: Common
               <td className="mono">{last.year}</td>
               <td className={`mono ${s.n}`}>{num(last.value * k, decimals)}</td>
               <td className={s.n} colSpan={3}>
-                last record
+                Last record
               </td>
             </tr>
             {result.forecast.map((f) => (

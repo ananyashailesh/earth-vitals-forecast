@@ -65,4 +65,4 @@ It starts from ℓ₀ = y₀ and b₀ = y₁ − y₀. α and β are grid-search
 
 ## Stack
 
-Vite, React 19, TypeScript, CSS Modules and D3 (scales and shapes only; React renders the SVG). There is no UI kit. Fonts are Big Shoulders Display, Atkinson Hyperlegible Next and Atkinson Hyperlegible Mono, from Google Fonts. Light and dark themes follow the system setting, with a manual toggle. The chart can be read with arrow keys and announces values to screen readers, and the layout respects `prefers-reduced-motion`.
+Vite, React 19, TypeScript, CSS Modules and D3 (scales and shapes only; React renders the SVG). There is no UI kit. The layout follows newsroom data pages (Reuters Climate Monitor, Our World in Data): a sentence that states the finding, a controls row above each chart, direct labels on the chart and a source line beneath it. Fonts are Newsreader (headlines), Public Sans (text) and IBM Plex Mono (table figures), from Google Fonts. Light and dark themes follow the system setting, with a manual toggle. The chart can be read with arrow keys and announces values to screen readers, and the layout respects `prefers-reduced-motion`.

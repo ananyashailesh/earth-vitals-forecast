@@ -15,8 +15,6 @@ type Props = {
   level: number
 }
 
-const M = { top: 28, right: 18, bottom: 34, left: 56 }
-
 export function Chart({ title, history: all, trainStart, fitted, forecast, unit, decimals, level }: Props) {
   const wrap = useRef<HTMLDivElement>(null)
   const [width, setWidth] = useState(720)
@@ -30,7 +28,9 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
     return () => ro.disconnect()
   }, [])
 
-  const height = width < 560 ? 280 : 380
+  const height = width < 560 ? 280 : 400
+  // right margin leaves room for the direct label on the final forecast point
+  const M = { top: 34, right: width < 560 ? 58 : 92, bottom: 30, left: 46 }
   const last = all[all.length - 1]
   // show the training window plus a quarter of its length as context, so the forecast stays legible
   const x0 = Math.max(all[0].year, trainStart - Math.round((last.year - trainStart) / 4))
@@ -89,11 +89,12 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
   }
 
   const fmt = (v: number) => num(v, decimals)
+  const end = forecast.at(-1)
   const tipLeft = cy != null && x(cy) > width * 0.6
 
   return (
-    <figure className={s.figure}>
-      <figcaption className={s.legend}>
+    <div className={s.figure}>
+      <div className={s.legend}>
         <span className={s.key}>
           <i className={s.swObs} aria-hidden /> Observed
         </span>
@@ -103,7 +104,7 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
         <span className={s.key}>
           <i className={s.swFc} aria-hidden /> Forecast, {level}% interval
         </span>
-      </figcaption>
+      </div>
       <div ref={wrap} className={s.wrap}>
         <svg
           width={width}
@@ -146,7 +147,7 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
             <g className={s.excluded}>
               <rect x={M.left} y={M.top} width={x(trainStart) - M.left} height={height - M.top - M.bottom} />
               <text x={M.left + 6} y={M.top + 12}>
-                Excluded from training
+                Not used for training
               </text>
             </g>
           )}
@@ -161,11 +162,23 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
           ))}
 
           <g className={s.lastRecord} transform={`translate(${x(last.year)},0)`}>
-            <line y1={M.top - 6} y2={height - M.bottom} />
-            <text y={M.top - 12} textAnchor={x(last.year) > width - 120 ? 'end' : 'start'} dx={x(last.year) > width - 120 ? -4 : 4}>
-              {last.year}
+            <line y1={M.top - 8} y2={height - M.bottom} />
+            <text y={M.top - 14} textAnchor="end" dx={-6}>
+              Observed to {last.year}
+            </text>
+            <text y={M.top - 14} dx={6} className={s.fcLabel}>
+              Forecast
             </text>
           </g>
+
+          {end && (
+            <g className={s.endLabel} transform={`translate(${x(end.year) + 8},${y(end.value)})`}>
+              <text dy="-0.2em">{end.year}</text>
+              <text dy="1em" className={s.endValue}>
+                {fmt(end.value)}
+              </text>
+            </g>
+          )}
 
           {cy != null && (
             <g className={s.cursor} transform={`translate(${x(cy)},0)`}>
@@ -180,22 +193,22 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
             <b>{cy}</b>
             {obs && (
               <span>
-                observed <em>{fmt(obs.value)}</em>
+                Observed <em>{fmt(obs.value)}</em>
               </span>
             )}
             {fit && (
               <span>
-                trend <em>{fmt(fit.value)}</em>
+                Trend <em>{fmt(fit.value)}</em>
                 {obs && <small> ({signed(obs.value - fit.value, decimals)})</small>}
               </span>
             )}
             {fc && (
               <>
                 <span>
-                  forecast <em>{fmt(fc.value)}</em>
+                  Forecast <em>{fmt(fc.value)}</em>
                 </span>
                 <span>
-                  {level}% <em>{fmt(fc.lo)} – {fmt(fc.hi)}</em>
+                  {level}% range <em>{fmt(fc.lo)} – {fmt(fc.hi)}</em>
                 </span>
               </>
             )}
@@ -206,6 +219,6 @@ export function Chart({ title, history: all, trainStart, fitted, forecast, unit,
           {cy != null && [cy, obs && `observed ${fmt(obs.value)}`, fc && `forecast ${fmt(fc.value)}, ${level}% interval ${fmt(fc.lo)} to ${fmt(fc.hi)}`, unit].filter(Boolean).join(', ')}
         </p>
       </div>
-    </figure>
+    </div>
   )
 }

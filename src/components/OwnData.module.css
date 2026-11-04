@@ -1,14 +1,14 @@
 .input {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: 20px;
-  padding: 18px;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  margin-bottom: 36px;
 }
 
 .label {
   display: block;
-  font-size: 12.5px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-2);
   margin-bottom: 6px;
 }
@@ -17,21 +17,19 @@
   width: 100%;
   resize: vertical;
   padding: 10px 12px;
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 1.6;
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
 }
-.paste textarea:focus {
-  outline: none;
-  border-color: var(--obs);
-  box-shadow: 0 0 0 3px var(--obs-soft);
+.paste textarea:hover {
+  border-color: var(--text-3);
 }
 
 .status {
   margin: 6px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-3);
 }
 
@@ -43,40 +41,37 @@
 .side input {
   height: 36px;
   padding: 0 10px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-.side input:focus {
-  outline: none;
-  border-color: var(--obs);
-  box-shadow: 0 0 0 3px var(--obs-soft);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  margin-bottom: 12px;
 }
 
 .button,
 .ghost {
   min-height: 36px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: left;
   cursor: pointer;
 }
 .button {
-  background: var(--obs);
-  color: #fff;
-  border: 1px solid var(--obs);
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+  font-weight: 600;
 }
 .button:hover {
-  filter: brightness(1.08);
+  background: var(--text-2);
+  border-color: var(--text-2);
 }
 .ghost {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
+  background: none;
+  border: 1px solid var(--rule);
 }
 .ghost:hover {
-  background: var(--hover);
+  background: var(--tint);
 }
 
 @media (max-width: 720px) {

@@ -1,0 +1,156 @@
+.wrap {
+  padding: 28px 0 8px;
+}
+.wrap h2 {
+  font-size: 28px;
+}
+
+.lede {
+  margin: 8px 0 18px;
+  max-width: 62ch;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.lede b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.scroll {
+  overflow-x: auto;
+  margin: 0 -4px;
+  padding: 0 4px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.table th,
+.table td {
+  padding: 10px 12px 10px 0;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.table thead th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 6px;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.table tbody th {
+  font-weight: 600;
+}
+.table tbody th a {
+  color: var(--text);
+  text-decoration: none;
+}
+.table tbody th a:hover {
+  text-decoration: underline;
+}
+.table tbody tr:hover {
+  background: var(--tint);
+}
+.table .n {
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 12px;
+}
+
+.active th a {
+  color: var(--obs);
+}
+.active th {
+  box-shadow: inset 3px 0 0 var(--obs);
+  padding-left: 10px;
+}
+
+.unit {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-3);
+}
+.year {
+  display: block;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.spark {
+  display: block;
+}
+.sObs,
+.sFc {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.sObs {
+  stroke: var(--obs);
+}
+.sFc {
+  stroke: var(--fc);
+  stroke-dasharray: 2 2;
+}
+.sDot {
+  fill: var(--fc);
+}
+
+.chip {
+  display: inline-block;
+  padding: 1px 7px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.up {
+  color: var(--up);
+  background: var(--up-bg);
+}
+.down {
+  color: var(--down);
+  background: var(--down-bg);
+}
+.flat {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--text-3);
+  max-width: 80ch;
+}
+
+@media (max-width: 640px) {
+  .sparkCol,
+  .changeCol {
+    display: none;
+  }
+  .table th,
+  .table td {
+    padding-right: 8px;
+  }
+  .table .n {
+    padding-left: 6px;
+  }
+  .lede {
+    font-size: 17px;
+  }
+  .table {
+    font-size: 14px;
+  }
+}

@@ -1,27 +1,22 @@
 .wrap {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 16px;
-  align-items: start;
-  margin-top: 32px;
-  padding: 32px 0 40px;
-  border-top: 1px solid var(--border);
-  font-size: 13.5px;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: 48px;
+  margin-top: 64px;
+  padding: 24px 0 56px;
+  border-top: 3px solid var(--text);
+  font-size: 15px;
   color: var(--text-2);
-  scroll-margin-top: 16px;
 }
 
-.col {
-  padding: 18px 20px;
-}
 .col h2 {
-  font-size: 15px;
+  font-size: 26px;
   color: var(--text);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .col p {
-  margin: 0 0 12px;
-  max-width: 72ch;
+  margin: 0 0 14px;
+  max-width: 66ch;
 }
 .col b {
   color: var(--text);
@@ -29,13 +24,13 @@
 }
 
 .defs {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 8px 16px;
+  gap: 8px 18px;
 }
 .defs dt {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text);
 }
 .defs dd {
@@ -43,27 +38,26 @@
 }
 
 .caveat {
-  padding: 10px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding-left: 14px;
+  border-left: 3px solid var(--fc);
 }
 
 .sources {
   list-style: none;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   padding: 0;
 }
 .sources li {
   padding: 10px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--rule-soft);
 }
 .sources li:first-child {
   padding-top: 0;
 }
 .sources h3 {
-  font-size: 13.5px;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text);
   margin-bottom: 2px;
 }
@@ -74,18 +68,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2px 14px;
-  font-size: 12px;
+  font-size: 13px;
   overflow-wrap: anywhere;
 }
 .stamp,
 .note {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-3);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 860px) {
   .wrap {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
   .defs {
     grid-template-columns: 1fr;

@@ -68,35 +68,32 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
   const set = (patch: Partial<SettingsValue>) => onChange({ ...value, ...patch })
   const first = series[0].year
   const last = series.at(-1)!.year
+  const from = value.from ?? defaultFrom
   const k = value.unit === 'F' ? 1.8 : 1
   const unit = value.unit === 'F' ? '°F' : '°C'
   const years = Array.from({ length: value.horizon }, (_, i) => last + i + 1)
 
   return (
-    <aside className="card" aria-labelledby={`${uid}-title`}>
-      <div className="card-head">
-        <div>
-          <h3 id={`${uid}-title`}>Model configuration</h3>
-          <p>Changes are saved in the URL.</p>
-        </div>
-      </div>
-      <div className={s.panel}>
-
+    <div className={s.bar} role="group" aria-label="Forecast settings">
       <label className={s.field}>
         <span className={s.label}>Model</span>
         <select value={value.model} onChange={(e) => set({ model: e.target.value as ModelChoice })}>
           {CHOICES.map((c) => (
             <option key={c} value={c}>
-              {MODEL_LABEL[c]}
+              {c === 'auto' ? `Auto: ${MODEL_LABEL[chosen]}` : MODEL_LABEL[c]}
             </option>
           ))}
         </select>
-        {value.model === 'auto' && <span className={s.note}>Selected: {MODEL_LABEL[chosen]}</span>}
       </label>
 
-      <div className={s.field}>
+      <div className={`${s.field} ${s.range}`}>
         <label className={s.label} htmlFor={`${uid}-from`}>
-          Training starts <output className="mono">{value.from ?? defaultFrom}</output>
+          Train from <output className="num">{from}</output>
+          {from !== defaultFrom && (
+            <button type="button" className={s.reset} onClick={() => set({ from: defaultFrom })}>
+              reset
+            </button>
+          )}
         </label>
         <input
           id={`${uid}-from`}
@@ -104,38 +101,34 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
           min={first}
           max={last - MIN_TRAIN}
           step={1}
-          value={value.from ?? defaultFrom}
+          value={from}
           onChange={(e) => set({ from: Number(e.target.value) })}
+          aria-describedby={`${uid}-from-note`}
         />
-        <span className={s.note}>
-          {first}–{last - MIN_TRAIN}, at least {MIN_TRAIN} years kept.{' '}
-          {(value.from ?? defaultFrom) !== defaultFrom && (
-            <button type="button" className={s.reset} onClick={() => set({ from: defaultFrom })}>
-              Reset to {defaultFrom}
-            </button>
-          )}
+        <span id={`${uid}-from-note`} className="sr">
+          {first} to {last - MIN_TRAIN}; at least {MIN_TRAIN} years are kept for training
         </span>
       </div>
 
       <fieldset className={s.field}>
-        <legend className={s.label}>Horizon, years</legend>
+        <legend className={s.label}>Years ahead</legend>
         <div className={s.seg}>
           {[1, 2, 3, 4, 5].map((h) => (
             <label key={h}>
               <input type="radio" name={`${uid}-h`} checked={value.horizon === h} onChange={() => set({ horizon: h })} />
-              <span className="mono">{h}</span>
+              <span>{h}</span>
             </label>
           ))}
         </div>
       </fieldset>
 
       <fieldset className={s.field}>
-        <legend className={s.label}>Prediction interval</legend>
+        <legend className={s.label}>Interval</legend>
         <div className={s.seg}>
           {([80, 95] as Level[]).map((l) => (
             <label key={l}>
               <input type="radio" name={`${uid}-band`} checked={value.level === l} onChange={() => set({ level: l })} />
-              <span className="mono">{l}%</span>
+              <span>{l}%</span>
             </label>
           ))}
         </div>
@@ -144,30 +137,31 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
       {temperature && (
         <>
           <fieldset className={s.field}>
-            <legend className={s.label}>Temperature unit</legend>
+            <legend className={s.label}>Unit</legend>
             <div className={s.seg}>
               {(['C', 'F'] as TempUnit[]).map((u) => (
                 <label key={u}>
                   <input type="radio" name={`${uid}-unit`} checked={value.unit === u} onChange={() => set({ unit: u })} />
-                  <span className="mono">°{u}</span>
+                  <span>°{u}</span>
                 </label>
               ))}
             </div>
           </fieldset>
 
-          <div className={s.field}>
-            <label className={s.check}>
-              <input type="checkbox" checked={value.enso} onChange={(e) => set({ enso: e.target.checked })} />
-              <span>El Niño / La Niña adjustment</span>
-            </label>
-            {value.enso && (
-              <div className={s.offsets}>
-                <p className={s.note}>
-                  Added to each forecast year. A strong El Niño typically lifts the following year by roughly +0.1 to +0.2 °C; La Niña lowers it by a similar amount.
-                </p>
+          <label className={`${s.field} ${s.check}`}>
+            <input type="checkbox" checked={value.enso} onChange={(e) => set({ enso: e.target.checked })} />
+            <span>El Niño adjustment</span>
+          </label>
+
+          {value.enso && (
+            <div className={s.offsets}>
+              <p className={s.note}>
+                Offset added to each forecast year. A strong El Niño typically lifts the following year by about +0.1 to +0.2 °C; La Niña lowers it by a similar amount.
+              </p>
+              <div className={s.offsetList}>
                 {years.map((y) => (
                   <label key={y} className={s.offset}>
-                    <span className="mono">{y}</span>
+                    <span className="num">{y}</span>
                     <input
                       type="range"
                       min={-0.3}
@@ -178,17 +172,16 @@ export function Settings({ value, onChange, series, temperature, defaultFrom, ch
                       aria-label={`El Niño offset for ${y}`}
                       aria-valuetext={`${signed((value.offsets[y] ?? 0) * k, 2)} ${unit}`}
                     />
-                    <output className="mono">
+                    <output className="num">
                       {signed((value.offsets[y] ?? 0) * k, 2)} {unit}
                     </output>
                   </label>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </>
       )}
-      </div>
-    </aside>
+    </div>
   )
 }

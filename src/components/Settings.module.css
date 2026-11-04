@@ -1,14 +1,17 @@
-.panel {
-  padding: 16px 18px 18px;
-  display: grid;
-  align-content: start;
-  gap: 18px;
-  min-width: 0;
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 24px;
+  margin: 16px 0 6px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
 }
 
 .field {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   border: 0;
   margin: 0;
   padding: 0;
@@ -17,47 +20,43 @@
 
 .label {
   display: flex;
-  justify-content: space-between;
+  gap: 6px;
   align-items: baseline;
   padding: 0;
-  font-size: 12.5px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-2);
 }
 .label output {
-  font-size: 12.5px;
-  font-weight: 500;
   color: var(--text);
-  font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
+  font-weight: 700;
 }
 
-.note {
-  margin: 0;
-  font-size: 12px;
-  color: var(--text-3);
-  line-height: 1.45;
-}
-
-.panel select {
-  width: 100%;
-  height: 36px;
-  padding: 0 32px 0 10px;
-  background: var(--surface)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%23667085' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+.field select {
+  height: 34px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 30px 0 10px;
+  font-size: 14px;
+  background: var(--bg)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 3.5l3.5 3.5 3.5-3.5' fill='none' stroke='%23808080' stroke-width='1.5'/%3E%3C/svg%3E")
     no-repeat right 10px center;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
   appearance: none;
   cursor: pointer;
 }
-.panel select:hover {
+.field select:hover {
   border-color: var(--text-3);
 }
 
-.panel input[type='range'] {
+.range {
+  width: 190px;
+}
+.range input {
   width: 100%;
-  margin: 4px 0;
+  height: 34px;
+  margin: 0;
   accent-color: var(--obs);
 }
 
@@ -65,94 +64,122 @@
   background: none;
   border: 0;
   padding: 0;
+  font-size: 12px;
+  font-weight: 400;
   color: var(--obs);
-  cursor: pointer;
-  font-size: inherit;
-}
-.reset:hover {
   text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
 }
 
-/* segmented control */
+/* button group, one bordered strip */
 .seg {
   display: flex;
-  gap: 2px;
-  padding: 3px;
-  background: var(--hover);
-  border-radius: 8px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
 }
 .seg label {
-  flex: 1;
   position: relative;
+}
+.seg label + label {
+  border-left: 1px solid var(--rule);
 }
 .seg input {
   position: absolute;
-  opacity: 0;
   inset: 0;
+  opacity: 0;
   margin: 0;
   cursor: pointer;
 }
 .seg span {
   display: block;
+  min-width: 34px;
+  padding: 6px 10px;
+  height: 32px;
+  font-size: 14px;
   text-align: center;
-  padding: 5px 4px;
-  font-size: 12.5px;
-  font-weight: 500;
-  font-family: var(--font-sans);
-  color: var(--text-3);
-  border-radius: 6px;
-  transition: background-color 100ms ease, color 100ms ease;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
 }
 .seg input:checked + span {
-  background: var(--surface);
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 600;
+}
+.seg input:not(:checked):hover + span {
+  background: var(--tint);
   color: var(--text);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
 }
 .seg input:focus-visible + span {
   outline: 2px solid var(--focus);
-  outline-offset: -2px;
-}
-.seg input:not(:checked):hover + span {
-  color: var(--text);
+  outline-offset: -3px;
 }
 
 .check {
   display: flex;
   align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  font-size: 13px;
+  gap: 8px;
+  height: 34px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 }
 .check input {
   width: 16px;
   height: 16px;
-  accent-color: var(--obs);
+  margin: 0;
+  accent-color: var(--fc);
 }
 
 .offsets {
+  flex-basis: 100%;
   display: grid;
   gap: 8px;
-  padding: 12px;
-  margin-top: 4px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 10px 0 2px 12px;
+  border-left: 3px solid var(--fc);
+}
+.note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-3);
+  max-width: 70ch;
+}
+.offsetList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
 }
 .offset {
   display: grid;
-  grid-template-columns: 3em 1fr 5.5em;
+  grid-template-columns: 3em 120px 5.5em;
   align-items: center;
   gap: 8px;
-  font-size: 12.5px;
+  font-size: 14px;
+}
+.offset input {
+  accent-color: var(--fc);
 }
 .offset output {
   text-align: right;
 }
 
-@media (max-width: 1180px) {
-  .panel {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    column-gap: 24px;
+@media (max-width: 560px) {
+  .bar {
+    gap: 12px 16px;
+  }
+  .field:first-child {
+    flex-basis: 100%;
+  }
+  .field:first-child select {
+    width: 100%;
+  }
+  .range {
+    flex-basis: 100%;
+    width: auto;
+  }
+  .offset {
+    grid-template-columns: 3em 1fr 5.5em;
+    width: 100%;
   }
 }
